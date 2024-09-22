@@ -1,5 +1,5 @@
 // COMSC 210 | Lab13 |  Winston Jose
-// Github link: https://github.com/winstonjose01/COMSC-210-Lab12-STDarray
+// Github link: https://github.com/winstonjose01/COMSC-210-Lab13-STDvector
 
 # include <iostream>
 # include <vector>
@@ -55,17 +55,17 @@ int main(){
         i++;
     }
 
-    // Report the size of the list array
+    // Report the size of the list vector
     cout << "1. Size of Grocery list: " << list.size() << endl;
-    cout << "\n----------------------------------------------------\n";
+    cout << "----------------------------------------------------\n";
 
-    // Display the values of the array of structs
+    // Display the values of the vector of structs
     cout << "2. Accessing value of the Grocery list:\n";
     for (GroceryItem val :  list) cout << "\t" << val.item << " | $" << val.prices << endl;
-     cout << "\n----------------------------------------------------\n";
+     cout << "----------------------------------------------------\n";
     
-    // Accessing individual elements in the array
-    cout << "\n3. Element 11 item and price: "<< list.at(11).item << " | $" << list.at(11).prices;
+    // Accessing individual elements in the vector
+    cout << "3. Element 11 item and price: "<< list.at(11).item << " | $" << list.at(11).prices;
     cout << "\n4. Element 29 item and price: "<< list[29].item << " | $" << list[29].prices;
     cout << "\n5. Front item and price: "<< list.front().item<< " | $" << list.front().prices;
     cout << "\n6. Back item and price: "<< list.back().item<< " | $" << list.back().prices;
@@ -73,24 +73,24 @@ int main(){
     cout << "\n8. Address? " << list.data();
     cout << "\n----------------------------------------------------\n";
 
-    // Sort the array by item name using the sortbyItem function
+    // Sort the vector by item name using the sortbyItem function
     sort(list.begin(), list.end(), sortbyItem); // Sort by item using a comparator function
-    cout << "\n9.  Sorted by item :\n";
+    cout << "9.  Sorted by item :\n";
     for (GroceryItem val :  list) cout << "\t" << val.item << " | $" << val.prices << endl;
-    cout << "\n----------------------------------------------------\n";
+    cout << "----------------------------------------------------\n";
 
-    // Sort the array by price using the sortbyPrice comparator function
+    // Sort the vector by price using the sortbyPrice comparator function
     sort(list.begin(), list.end(), sortbyPrice); // use sortbyPrice() comparator
-    cout << "\n10.  Sorted by price :\n";
+    cout << "10.  Sorted by price :\n";
     for (GroceryItem val :  list) cout << "\t" << val.item << " | $" << val.prices << endl;
-    cout << "\n----------------------------------------------------\n";
+    cout << "----------------------------------------------------\n";
 
-    // Reverse sort by item (reversing the sorted array)
+    // Reverse sort by item (reversing the sorted vector)
     sort(list.begin(), list.end(), sortbyItem); // Use sortbyItem() comparator
-    cout << "\n11.  Reverse sorting by item :\n";
+    cout << "11.  Reverse sorting by item :\n";
     sort(list.rbegin(), list.rend(), sortbyItem);
     for (GroceryItem val :  list) cout << "\t" << val.item << " | $" << val.prices << endl;
-    cout << "\n----------------------------------------------------\n";
+    cout << "----------------------------------------------------\n";
 
      // Find the max price using max_element - use lambda function to compare price fields
     cout << "12. Max: $" << max_element(list.begin(), list.end(),[](GroceryItem &a, GroceryItem &b)
@@ -98,21 +98,23 @@ int main(){
 
     // Find the min price using min_element  - use lambda function to compare price field
     cout << "\n13. Min: $" << min_element(list.begin(), list.end(),[](GroceryItem &a, GroceryItem &b) 
-         {return a.prices > b.prices;})->prices;
+         {return a.prices < b.prices;})->prices;
     
     // Sum all prices using accumulate - use the 4th argument with a lambda fn to sum the price elements
     cout << "\n13. Sum: $" << accumulate(list.begin(), list.end(),0.0,[](double sum, GroceryItem &b)
          {return sum + b.prices;});
     cout << "\n----------------------------------------------------\n";
 
-    // Create several empty <array> and fill with one value
+    // Create several empty <vector> and fill with one value
     vector<GroceryItem> list3(3);
     cout << "14. Vector of empty structs and fill with one value\n";
+    cout << "\tVector filled with 3 items and price:\n";
     fill(list3.begin(), list3.end(), GroceryItem{"Butter", 5.23});
     for (GroceryItem val :  list3) cout << "\t" << val.item << " | $" << val.prices << endl;
     cout << "----------------------------------------------------\n";
 
     vector<GroceryItem> list5(5);
+    cout << "\tVector filled with 5 items and price:\n";
     fill(list5.begin(), list5.end(), GroceryItem{"Cookies", 3.56});
     for (GroceryItem val :  list5) cout << "\t" << val.item << " | $" << val.prices << endl;
     cout << "----------------------------------------------------\n";
