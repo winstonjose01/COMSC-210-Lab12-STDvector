@@ -18,8 +18,8 @@ struct GroceryItem{
 
 //Function declarations
 int openFile(fstream &, string);  // Function to open  file
-bool sortbyItem (GroceryItem &, GroceryItem &); // Function to compare items alphabetically
-bool sortbyPrice (GroceryItem &, GroceryItem &); // Function to compare prices
+bool sortbyItem (const GroceryItem &, const GroceryItem &); // Function to compare items alphabetically
+bool sortbyPrice (const GroceryItem &, const GroceryItem &); // Function to compare prices
 
 int main(){
 
@@ -93,15 +93,15 @@ int main(){
     cout << "----------------------------------------------------\n";
 
      // Find the max price using max_element - use lambda function to compare price fields
-    cout << "12. Max: $" << max_element(list.begin(), list.end(),[](GroceryItem &a, GroceryItem &b)
+    cout << "12. Max: $" << max_element(list.begin(), list.end(),[](const GroceryItem &a, const GroceryItem &b)
          {return a.prices < b.prices;})->prices;
 
     // Find the min price using min_element  - use lambda function to compare price field
-    cout << "\n13. Min: $" << min_element(list.begin(), list.end(),[](GroceryItem &a, GroceryItem &b) 
+    cout << "\n13. Min: $" << min_element(list.begin(), list.end(),[](const GroceryItem &a, const GroceryItem &b) 
          {return a.prices < b.prices;})->prices;
     
     // Sum all prices using accumulate - use the 4th argument with a lambda fn to sum the price elements
-    cout << "\n13. Sum: $" << accumulate(list.begin(), list.end(),0.0,[](double sum, GroceryItem &b)
+    cout << "\n13. Sum: $" << accumulate(list.begin(), list.end(),0.0,[](double sum, const GroceryItem &b)
          {return sum + b.prices;});
     cout << "\n----------------------------------------------------\n";
 
@@ -125,11 +125,11 @@ int main(){
 
 }
 
-bool sortbyItem(GroceryItem &a, GroceryItem&b){
+bool sortbyItem(const GroceryItem &a, const GroceryItem&b){
     return (a.item < b.item);
 }
 
-bool sortbyPrice(GroceryItem &a, GroceryItem&b){
+bool sortbyPrice(const GroceryItem &a, const GroceryItem&b){
     return (a.prices < b.prices);
 }
 
