@@ -2,16 +2,13 @@
 // Github link: https://github.com/winstonjose01/COMSC-210-Lab12-STDarray
 
 # include <iostream>
-# include <array>
+# include <vector>
 # include <algorithm>
 # include <numeric>
 # include <fstream>
 # include <sstream>
 # include <string>
-
 using namespace std;
-
-const int SIZE = 30; // Constant size for the
 
 // Struct to store grocery item name and price
 struct GroceryItem{
@@ -30,7 +27,7 @@ int main(){
     string filename = "grocery.csv"; // File name to open
     int fstat; // File status
     string line; // String to hold each line from the file
-    array<GroceryItem, SIZE> list; // Array of structs to hold items and prices
+    vector <GroceryItem> list; // Vector of structs to hold items and prices
  
     // Exit if file cannot be opened
     fstat = openFile(budgetfile,filename);
@@ -40,19 +37,21 @@ int main(){
     int i = 0;
 
     // Read the file line by line and split each line into item and price
-    while (getline(budgetfile, line) && i < SIZE){
+    while (getline(budgetfile, line)){
         stringstream ss(line); // Create a stringstream to process the line
         string priceStr;
+        GroceryItem new_item;
 
-        getline(ss, list[i].item,','); // Delimit the line by comma
+        getline(ss, new_item.item,','); // Delimit the line by comma
         getline(ss,priceStr); // Get price (after the comma)
         if (!priceStr.empty())
             try{
-            list[i].prices = stod(priceStr);  // Convert price from string to double
+            new_item.prices = stod(priceStr);  // Convert price from string to double
             }
             catch(const invalid_argument &e){
             cout << "Invalid price " << priceStr << endl; // Handle invalid price input
             }
+        list.push_back(new_item);
         i++;
     }
 
@@ -98,22 +97,22 @@ int main(){
          {return a.prices < b.prices;})->prices;
 
     // Find the min price using min_element  - use lambda function to compare price field
-    cout << "\n13. Min: $" << min_element(list.begin(), list.end(),[](GroceryItem &a, GroceryItem &b)
+    cout << "\n13. Min: $" << min_element(list.begin(), list.end(),[](GroceryItem &a, GroceryItem &b) 
          {return a.prices > b.prices;})->prices;
     
     // Sum all prices using accumulate - use the 4th argument with a lambda fn to sum the price elements
     cout << "\n13. Sum: $" << accumulate(list.begin(), list.end(),0.0,[](double sum, GroceryItem &b)
          {return sum + b.prices;});
-    cout << "----------------------------------------------------\n";
+    cout << "\n----------------------------------------------------\n";
 
     // Create several empty <array> and fill with one value
-    array<GroceryItem,3> list3;
-    cout << "14. Array of emppty structs and fill with one value\n";
+    vector<GroceryItem> list3(3);
+    cout << "14. Vector of empty structs and fill with one value\n";
     fill(list3.begin(), list3.end(), GroceryItem{"Butter", 5.23});
     for (GroceryItem val :  list3) cout << "\t" << val.item << " | $" << val.prices << endl;
     cout << "----------------------------------------------------\n";
 
-    array<GroceryItem,5> list5;
+    vector<GroceryItem> list5(5);
     fill(list5.begin(), list5.end(), GroceryItem{"Cookies", 3.56});
     for (GroceryItem val :  list5) cout << "\t" << val.item << " | $" << val.prices << endl;
     cout << "----------------------------------------------------\n";
